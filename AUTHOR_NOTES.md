@@ -12,3 +12,5 @@
 - Seed the database more extensively for testing purposes
 - Since we are using docker, I don't think I'd integrate PM2 or nodemon but instead use `--restart=always` flag.
 - Would probably add a linting check to the github action so we could avoid merging code without standardized coding styles
+- Determine returning a whole number vs string with fractional amount for labor_cost
+- Consider using a sql view to aggregate the data instead of the two different join approaches
