@@ -6,7 +6,7 @@ CREATE TABLE locations (
 CREATE TABLE tasks (
   id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   description VARCHAR(100) NOT NULL,
-
+  completed BOOLEAN DEFAULT FALSE,
   location_id INT(11) NOT NULL,
 
   FOREIGN KEY(location_id) REFERENCES locations(id) ON DELETE CASCADE

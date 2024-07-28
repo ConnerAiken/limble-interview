@@ -1,36 +1,18 @@
 import express from "express";
-import * as mariadb from "mariadb";
-
+import defaultRoutes from "./src/routes/default.js";  
+import { connectDatabase } from "./src/db.js";
+import logger from "./src/logger.js";
 const app = express();
-const port = 3000;
-let db;
-
-async function connect() {
-  console.info("Connecting to DB...");
-  db = mariadb.createPool({
-    host: process.env["DATABASE_HOST"],
-    user: process.env["DATABASE_USER"],
-    password: process.env["DATABASE_PASSWORD"],
-    database: process.env["DATABASE_NAME"]
-  });
-
-  const conn = await db.getConnection();
-  try {
-    await conn.query("SELECT 1");
-  } finally {
-    await conn.end();
-  }
-}
+const port = process.env.API_PORT || 3000;
 
 async function main() {
-  await connect();
-
-  app.get("/", (req, res) => {
-    res.send("Hello!");
-  });
+  // Intentionally do not catch errors here, so that the process will crash and restart
+  await connectDatabase();
+ 
+  app.use("*", defaultRoutes);
 
   app.listen(port, "0.0.0.0", () => {
-    console.info(`App listening on ${port}.`);
+    logger.info(`App listening on ${port}.`);
   });
 }
 
