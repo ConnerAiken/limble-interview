@@ -1,7 +1,7 @@
 import expressCache from "cache-express";
 import express from "express";
 import logger from "../logger.js";
-import { areParamsValid, constructFilteringConditions } from "../utils.js";
+import { areParamsValid } from "../utils.js";
 import { getDatabaseConnection } from "../db.js";
 
 const router = express.Router();
@@ -92,7 +92,9 @@ router.get(
           tasks t ON lt.task_id = t.id 
       WHERE
           true=true
-          ${constructFilteringConditions(req)} 
+          ${req.query?.completed !== undefined ? "AND t.completed = :completed" : ""}
+          ${req.query?.location_ids !== undefined ? "AND t.location_id IN (:location_ids)" : ""}
+          ${req.query?.worker_ids !== undefined ? "AND w.id IN (:worker_ids)" : ""}
       GROUP BY 
           w.id, w.username
       ORDER BY
@@ -208,7 +210,9 @@ router.get(
                  workers w ON lt.worker_id = w.id 
              WHERE
                  true=true 
-                ${constructFilteringConditions(req)} 
+                 ${req.query?.completed !== undefined ? "AND t.completed = :completed" : ""}
+                 ${req.query?.location_ids !== undefined ? "AND l.id IN (:location_ids)" : ""}
+                 ${req.query?.worker_ids !== undefined ? "AND lt.worker_id IN (:worker_ids)" : ""}
              GROUP BY 
                  l.id, l.name
              ORDER BY

@@ -30,7 +30,7 @@ CREATE TABLE logged_time (
 ) ENGINE=INNODB;
 
 -- Add some indexes for the labor costs report
-CREATE INDEX idx_tasks_location_id ON tasks(location_id); 
 CREATE INDEX idx_tasks_completed ON tasks(completed); 
+CREATE INDEX idx_tasks_location_id ON tasks(location_id);  
 CREATE INDEX idx_logged_time_task_id ON logged_time(task_id); 
 CREATE INDEX idx_logged_time_worker_id ON logged_time(worker_id);

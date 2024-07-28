@@ -1,32 +1,7 @@
-import { areParamsValid, constructFilteringConditions } from "../utils.js";
+import { areParamsValid } from "../utils.js";
 import { expect } from "chai";
 
 describe("Utility functions", () => {
-  describe("Dynamic Filtering SQL Conditions", () => {
-    it("should return an empty string when no query parameters are passed", async () => {
-      const input = {
-        query: {},
-      };
-
-      const output = constructFilteringConditions(input);
-      expect(output).to.equal("");
-    });
-
-    it("should return a WHERE condition when query parameters are passed", async () => {
-      const input = {
-        query: {
-          completed: "true",
-          location_ids: "1,2,3",
-          worker_ids: "4,5,6",
-        },
-      };
-
-      const output = constructFilteringConditions(input);
-      expect(output).to.contain("AND t.completed = :completed");
-      expect(output).to.contain("AND l.id IN (:location_ids)");
-      expect(output).to.contain("AND w.id IN (:worker_ids)");
-    });
-  });
   describe("Parameter Validation", () => {
     describe("GET /metrics/*?completed=true&location_ids=1,2,3&worker_ids=4,5,6", () => {
       it("should return success true and message 'Params are valid' when all query parameters are valid", async () => {
