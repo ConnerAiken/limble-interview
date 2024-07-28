@@ -1,15 +1,28 @@
 {
-  "name": "server",
+  "name": "limble-labor-metrics-api",
   "version": "1.0.0",
-  "description": "I'm a server!",
+  "description": "A simple express API for limble labor metrics",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "mocha ./src/tests",
+    "test:watch": "mocha --watch ./src/tests/*.test.js",
+    "docs": "apidoc -i ./src -o ./docs"
   },
-  "author": "",
+  "author": "Conner Aiken",
   "type": "module",
   "dependencies": {
+    "cache-express": "^1.0.2",
+    "compression": "^1.7.4",
     "express": "^4.18.3",
-    "mariadb": "^3.2.3"
+    "mariadb": "^3.2.3",
+    "winston": "^3.13.1"
+  },
+  "devDependencies": {
+    "apidoc": "^1.2.0",
+    "chai": "^5.1.1",
+    "jest": "^29.7.0",
+    "mocha": "^10.7.0",
+    "supertest": "^7.0.0"
   }
 }
