@@ -1,0 +1,7 @@
+{
+  "name": "Limble Labor Metrics API",
+  "version": "1.0.0",
+  "description": "A simple express API for providing limble labor cost metrics",
+  "title": "Limble Labor Metrics API",
+  "url": "https://github.com/ConnerAiken/limble-interview"
+}

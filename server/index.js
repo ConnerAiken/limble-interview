@@ -9,6 +9,7 @@ async function main() {
   // Intentionally do not catch errors here, so that the process will crash and restart
   await connectDatabase();
  
+  app.use("/api/health-check", healthCheckRoutes);
   app.use("*", defaultRoutes);
 
   app.listen(port, "0.0.0.0", () => {
