@@ -127,3 +127,7 @@ $$
 DELIMITER ;
 
 CALL seedTimeLogs();  
+
+
+-- Randomy set tasks to completed
+UPDATE tasks SET completed = 1 WHERE RAND() < 0.5;
