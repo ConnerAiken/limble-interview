@@ -196,8 +196,8 @@ router.get(
     const sqlQuery = `
              SELECT 
                  l.id AS location_id,
-                 l.name AS location_name,
-                 SUM(lt.time_seconds / 3600 * w.hourly_wage) AS total_labor_cost
+                 l.name AS location_name, 
+                 COALESCE(SUM(lt.time_seconds) / 3600 * w.hourly_wage, 0) as labor_cost
              FROM 
                  locations l  
              LEFT JOIN 

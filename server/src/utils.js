@@ -15,7 +15,7 @@ export const constructFilteringConditions = (req) => {
     sqlConditions += ` AND t.id IN (:location_ids) `;
   }
   if (req.query?.worker_ids !== undefined) {
-    sqlConditions += ` AND w.id IN (:worker_ids) `;
+    sqlConditions += ` AND lt.id IN (:worker_ids) `;
   }
 
   return sqlConditions;
