@@ -14,3 +14,4 @@
 - Would probably add a linting check to the github action so we could avoid merging code without standardized coding styles
 - Determine returning a whole number vs string with fractional amount for labor_cost
 - Consider using a sql view to aggregate the data instead of the two different join approaches
+- Consider changing the way I do the WHERE clause conditions to make use of higher level tables in the join (for example, we can filter on location instead of tasks for `/api/metrics/labor_cost_by_location`)
