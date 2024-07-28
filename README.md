@@ -1,20 +1,37 @@
-# Installation
+# Limble Metrics API
 
-## Docker
+## Installation
+
+### Docker
 
 To set up the environment, you will need to first install [Docker](https://docs.docker.com/engine/install/).
 This test uses Docker Compose to run everything.
 
-## Backend Server
+### Backend Server
 
-The backend server uses Node.js, but you don't need to have that installed on your machine. You can install
-the dependencies by running:
+The backend server uses Node.js, but you don't need to have that installed on your machine.
+
+You can install the dependencies by running:
 
 ```bash
 docker compose run server npm i
 ```
 
-## Database
+Since we are using docker-compose, environment variables can be tweaked within `docker-compose.yml` such as the caching duration:
+
+```bash
+CACHE_TIMEOUT_MINUTES: 5
+API_PORT: 3000
+LOG_LEVEL: debug
+```
+
+Once the dependencies are installed, you can run then service with 3000 bound to your machine with:
+
+```bash
+docker compose up server
+```
+
+### Database
 
 To bring up the database:
 
@@ -28,9 +45,19 @@ Once it's ready to go, you can run the schema migrator to build the schema:
 docker compose run migrate
 ```
 
+You can then seed the database with test data:
+
+```bash
+docker compose run seed
+```
+
 If that fails (because of something like an already existing table), you can always start with a clean slate
 by bringing the DB container down:
 
 ```bash
 docker compose down
 ```
+
+## Documentation
+
+For API docs, see the [Documentation](https://html-preview.github.io/?url=https://github.com/ConnerAiken/limble-interview/blob/main/server/docs/index.html) that is generated within the server folder.
