@@ -1,0 +1,142 @@
+{
+  "info": {
+    "_postman_id": "cd477baa-0c62-4a9e-a9d5-ae57e7c42da2",
+    "name": "Limble-Backend-Test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "1309591"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Labor Cost By Worker",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/metrics/labor_cost_by_worker",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "metrics", "labor_cost_by_worker"],
+          "query": [
+            {
+              "key": "completed",
+              "value": "false",
+              "description": "Filter on incomplete tasks",
+              "disabled": true
+            },
+            {
+              "key": "completed",
+              "value": "true",
+              "description": "Filter on completed tasks",
+              "disabled": true
+            },
+            {
+              "key": "completed",
+              "value": "notabool",
+              "description": "Invalid completed filter",
+              "disabled": true
+            },
+            {
+              "key": "worker_ids",
+              "value": "1,2,3",
+              "description": "Filter on worker ids",
+              "disabled": true
+            },
+            {
+              "key": "worker_ids",
+              "value": "notanint",
+              "description": "Invalid worker ids",
+              "disabled": true
+            },
+            {
+              "key": "location_ids",
+              "value": "1,2,3",
+              "description": "Filter on location ids",
+              "disabled": true
+            },
+            {
+              "key": "location_ids",
+              "value": "notanint",
+              "description": "Invalid location ids",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Labor Cost By Location",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/metrics/labor_cost_by_location?worker_ids=1,2,3",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "metrics", "labor_cost_by_location"],
+          "query": [
+            {
+              "key": "completed",
+              "value": "false",
+              "description": "Filter on incomplete tasks",
+              "disabled": true
+            },
+            {
+              "key": "completed",
+              "value": "true",
+              "description": "Filter on completed tasks",
+              "disabled": true
+            },
+            {
+              "key": "completed",
+              "value": "notabool",
+              "description": "Invalid completed filter",
+              "disabled": true
+            },
+            {
+              "key": "worker_ids",
+              "value": "1,2,3",
+              "description": "Filter on worker ids"
+            },
+            {
+              "key": "worker_ids",
+              "value": "notanint",
+              "description": "Invalid worker ids",
+              "disabled": true
+            },
+            {
+              "key": "location_ids",
+              "value": "1,2,3",
+              "description": "Filter on location ids",
+              "disabled": true
+            },
+            {
+              "key": "location_ids",
+              "value": "notanint",
+              "description": "Invalid location ids",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
