@@ -106,7 +106,7 @@ router.get(
           sql: sqlQuery,
         },
         {
-          completed: req.query?.completed ? true : false,
+          completed: req.query?.completed ? 1 : 0,
           location_ids: req.query?.location_ids ? req.query.location_ids.split(",") : [],
           worker_ids: req.query?.worker_ids ? req.query.worker_ids.split(",") : [],
         },
@@ -222,7 +222,7 @@ router.get(
           sql: sqlQuery,
         },
         {
-          completed: req.query?.completed ? true : false,
+          completed: req.query?.completed ? 1 : 0,
           location_ids: req.query.location_ids ? req.query.location_ids.split(",") : [],
           worker_ids: req.query?.worker_ids ? req.query.worker_ids.split(",") : [],
         },

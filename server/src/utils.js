@@ -12,7 +12,7 @@ export const constructFilteringConditions = (req) => {
     sqlConditions += ` AND t.completed = :completed `;
   }
   if (req.query?.location_ids !== undefined) {
-    sqlConditions += ` AND l.id IN (:location_ids) `;
+    sqlConditions += ` AND t.id IN (:location_ids) `;
   }
   if (req.query?.worker_ids !== undefined) {
     sqlConditions += ` AND w.id IN (:worker_ids) `;
