@@ -17,12 +17,12 @@ const cacheTimeout = process.env.CACHE_TIMEOUT_MINUTES
  * @apiPermission none
  * @apiGroup Metrics
  *
- * @apiParam {Boolean} [completed] Filter by completed tasks
+ * @apiParam {Integer} [completed] Filter by completed tasks
  * @apiParam {String} [location_ids] Filter by location IDs
  * @apiParam {String} [worker_ids] Filter by worker IDs
  * @apiParamExample {json} Parameter Examples:
  * {
- *    api/metrics/labor_cost_by_worker?completed=true&location_ids=1,2,3&worker_ids=4,5,6
+ *    api/metrics/labor_cost_by_worker?completed=1&location_ids=1,2,3&worker_ids=4,5,6
  * }
  *
  * @apiSuccess (200) {String} message A message indicating the request was sucessful
@@ -43,7 +43,7 @@ const cacheTimeout = process.env.CACHE_TIMEOUT_MINUTES
  * @apiError (400) {Object[]} data Empty array
  * @apiErrorExample {json} Invalid query string parameter:
  * {
- * "message": "The completed query string param must be a boolean"
+ * "message": "The completed query string param must be an integer"
  * "data": []
  * }
  *
@@ -134,12 +134,12 @@ router.get(
  * @apiPermission none
  * @apiGroup Metrics
  *
- * @apiParam {Boolean} [completed] Filter by completed tasks
+ * @apiParam {Integer} [completed] Filter by completed tasks
  * @apiParam {String} [location_ids] Filter by location IDs
  * @apiParam {String} [worker_ids] Filter by worker IDs
  * @apiParamExample {json} Parameter Examples:
  * {
- *    api/metrics/labor_cost_by_location?completed=true&location_ids=1,2,3&worker_ids=4,5,6
+ *    api/metrics/labor_cost_by_location?completed=1&location_ids=1,2,3&worker_ids=4,5,6
  * }
  *
  * @apiSuccess (200) {String} message A message indicating the request was sucessful
@@ -160,7 +160,7 @@ router.get(
  * @apiError (400) {Object[]} data Empty array
  * @apiErrorExample {json} Invalid query string parameter:
  * {
- * "message": "The completed query string param must be a boolean"
+ * "message": "The completed query string param must be an integer"
  * "data": []
  * }
  *
