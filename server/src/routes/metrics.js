@@ -70,7 +70,7 @@ router.get(
     // ==========================
     const paramStatus = areParamsValid(req);
     if (!paramStatus.success) {
-      res.status(400).json({
+      return res.status(400).json({
         message: paramStatus.message,
         data: [],
       });
@@ -83,7 +83,7 @@ router.get(
       SELECT
         w.id as worker_id,
         w.username,  
-        COALESCE(SUM(lt.time_seconds) / 3600 * w.hourly_wage, 0) as labor_cost
+        ROUND(COALESCE(SUM(lt.time_seconds) / 3600 * w.hourly_wage, 0), 2) as labor_cost
       FROM
           workers w
       LEFT JOIN
@@ -114,13 +114,13 @@ router.get(
         },
       );
 
-      res.status(200).json({
+      return res.status(200).json({
         message: "Fetched labor cost by worker",
         data: results,
       });
     } catch (e) {
       logger.error("Error querying the DB: ", e);
-      res.status(500).send({
+      return res.status(500).send({
         message: "Error querying the DB",
         data: [],
       });
@@ -186,7 +186,7 @@ router.get(
     // ==========================
     const paramStatus = areParamsValid(req);
     if (!paramStatus.success) {
-      res.status(400).json({
+      return res.status(400).json({
         message: paramStatus.message,
         data: [],
       });
@@ -199,7 +199,7 @@ router.get(
              SELECT 
                  l.id AS location_id,
                  l.name AS location_name, 
-                 COALESCE(SUM(lt.time_seconds) / 3600 * w.hourly_wage, 0) as labor_cost
+                 ROUND(COALESCE(SUM(lt.time_seconds) / 3600 * w.hourly_wage, 0), 2) as labor_cost
              FROM 
                  locations l  
              LEFT JOIN 
@@ -232,13 +232,13 @@ router.get(
         },
       );
 
-      res.status(200).json({
+      return res.status(200).json({
         message: "Fetched labor cost by location",
         data: results,
       });
     } catch (e) {
       logger.error("Error querying the DB: ", e);
-      res.status(500).send({
+      return res.status(500).send({
         message: "Error querying the DB",
         data: [],
       });

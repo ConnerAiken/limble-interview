@@ -10,7 +10,6 @@ describe("Default Routes", () => {
       .get("/api/unknown-route")
       .expect(501)
       .then((response) => {
-        console.log(response.body);
         expect(response.body.message).to.include(
           "The API route you are attempting to access has not been implemented",
         );

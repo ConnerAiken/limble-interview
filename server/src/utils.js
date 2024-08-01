@@ -8,12 +8,8 @@ import logger from "./logger.js";
 export const areParamsValid = (req) => {
   let errorMessage = "";
 
-  if (
-    req.query?.completed !== undefined &&
-    req.query.completed !== "true" &&
-    req.query.completed !== "false"
-  ) {
-    errorMessage = "The completed query string param must be a boolean";
+  if (req.query?.completed !== undefined && req.query.completed !== "1" && req.query.completed !== "0") {
+    errorMessage = "The completed query string param must be an integer";
   }
   if (req.query?.location_ids !== undefined && !req.query.location_ids.match(/^(\d+,)*\d+$/)) {
     errorMessage = "The location_ids query string param must be a comma-separated list of integers";
