@@ -3,11 +3,11 @@ import { expect } from "chai";
 
 describe("Utility functions", () => {
   describe("Parameter Validation", () => {
-    describe("GET /metrics/*?completed=true&location_ids=1,2,3&worker_ids=4,5,6", () => {
+    describe("GET /metrics/*?completed=1&location_ids=1,2,3&worker_ids=4,5,6", () => {
       it("should return success true and message 'Params are valid' when all query parameters are valid", async () => {
         const input = {
           query: {
-            completed: "true",
+            completed: "1",
             location_ids: "1,2,3",
             worker_ids: "4,5,6",
           },
@@ -29,15 +29,15 @@ describe("Utility functions", () => {
 
         const output = areParamsValid(input);
         expect(output.success).to.equal(false);
-        expect(output.message).to.contain("The completed query string param must be a boolean");
+        expect(output.message).to.contain("The completed query string param must be an integer");
       });
 
-      it("should accept true and false", async () => {
+      it("should accept 1 and 0", async () => {
         let output;
 
         output = areParamsValid({
           query: {
-            completed: "true",
+            completed: "1",
           },
         });
 
@@ -45,7 +45,7 @@ describe("Utility functions", () => {
 
         output = areParamsValid({
           query: {
-            completed: "false",
+            completed: "0",
           },
         });
 
