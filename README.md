@@ -45,17 +45,21 @@ Once it's ready to go, you can run the schema migrator to build the schema:
 docker compose run migrate
 ```
 
-You can then seed the database with test data:
-
-```bash
-docker compose run seed
-```
-
 If that fails (because of something like an already existing table), you can always start with a clean slate
 by bringing the DB container down:
 
 ```bash
 docker compose down
+```
+
+### Tests
+
+Once the dependencies are installed, you can run unit or integration tests. Or both! However, you will need to have the seeded test db running if you try integration tests.
+
+```bash
+docker compose run server npm test
+docker compose run server npm run tests:unit
+docker compose run server npm run tests:integration
 ```
 
 ## Documentation

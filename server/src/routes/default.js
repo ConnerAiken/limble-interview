@@ -12,14 +12,14 @@ const router = express.Router();
  * @apiError (501) {object[]} data An empty array
  * @apiErrorExample {json} Unimplemented API route:
  * {
- *   "message": "The API route you are attempting has not been implemented",
+ *   "message": "The API route you are attempting to access has not been implemented",
  *   "data": []
  * }
  */
 
 router.get("*", function (req, res) {
   res.status(501).send({
-    message: "The API route you are attempting has not been implemented",
+    message: "The API route you are attempting to access has not been implemented",
     data: [],
   });
 });

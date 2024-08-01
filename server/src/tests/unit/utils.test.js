@@ -1,4 +1,4 @@
-import { areParamsValid } from "../utils.js";
+import { areParamsValid } from "./../../utils.js";
 import { expect } from "chai";
 
 describe("Utility functions", () => {
