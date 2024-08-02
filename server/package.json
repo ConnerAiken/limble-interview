@@ -15,7 +15,6 @@
   "author": "Conner Aiken",
   "type": "module",
   "dependencies": {
-    "cache-express": "^1.0.2",
     "compression": "^1.7.4",
     "express": "^4.18.3",
     "mariadb": "^3.2.3",

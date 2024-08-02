@@ -12,7 +12,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/api",
+          "raw": "http://localhost:3000/api/health-check",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
@@ -140,3 +140,4 @@
     }
   ]
 }
+

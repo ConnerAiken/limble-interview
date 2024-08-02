@@ -20,7 +20,6 @@ docker compose run server npm i
 Since we are using docker-compose, environment variables can be tweaked within `docker-compose.yml` such as the caching duration:
 
 ```bash
-CACHE_TIMEOUT_MINUTES: 5
 API_PORT: 3000
 LOG_LEVEL: debug
 ```

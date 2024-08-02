@@ -1,15 +1,9 @@
-import expressCache from "cache-express";
 import express from "express";
 import logger from "../logger.js";
 import { areParamsValid } from "../utils.js";
 import { getDatabaseConnection } from "../db.js";
 
 const router = express.Router();
-
-// Cache our API request to limit DB queries. If CACHE_TIMEOUT_MINUTES is not set, default to 5 minutes
-const cacheTimeout = process.env.CACHE_TIMEOUT_MINUTES
-  ? process.env.CACHE_TIMEOUT_MINUTES * 60000
-  : 60000 * 5;
 
 /**
  * @api {GET} /metrics/labor_cost_by_worker Get Labor Cost by Worker
@@ -55,31 +49,24 @@ const cacheTimeout = process.env.CACHE_TIMEOUT_MINUTES
  * "data": []
  * }
  */
-router.get(
-  "/labor_cost_by_worker",
-  // Middleware 1: Cache the response for a set amount of time
-  expressCache({
-    timeOut: cacheTimeout,
-  }),
-  // Handle the request
-  async (req, res) => {
-    const conn = getDatabaseConnection();
+router.get("/labor_cost_by_worker", async (req, res) => {
+  const conn = getDatabaseConnection();
 
-    // ============================
-    // Input Validation
-    // ==========================
-    const paramStatus = areParamsValid(req);
-    if (!paramStatus.success) {
-      return res.status(400).json({
-        message: paramStatus.message,
-        data: [],
-      });
-    }
+  // ============================
+  // Input Validation
+  // ==========================
+  const paramStatus = areParamsValid(req);
+  if (!paramStatus.success) {
+    return res.status(400).json({
+      message: paramStatus.message,
+      data: [],
+    });
+  }
 
-    // ============================
-    // SQL Logic
-    // ==========================
-    const sqlQuery = `
+  // ============================
+  // SQL Logic
+  // ==========================
+  const sqlQuery = `
       SELECT
         w.id as worker_id,
         w.username,  
@@ -101,32 +88,31 @@ router.get(
           w.id ASC;
   `;
 
-    try {
-      const results = await conn.query(
-        {
-          namedPlaceholders: true,
-          sql: sqlQuery,
-        },
-        {
-          completed: req.query?.completed ? 1 : 0,
-          location_ids: req.query?.location_ids ? req.query.location_ids.split(",") : [],
-          worker_ids: req.query?.worker_ids ? req.query.worker_ids.split(",") : [],
-        },
-      );
+  try {
+    const results = await conn.query(
+      {
+        namedPlaceholders: true,
+        sql: sqlQuery,
+      },
+      {
+        completed: req.query?.completed ? 1 : 0,
+        location_ids: req.query?.location_ids ? req.query.location_ids.split(",") : [],
+        worker_ids: req.query?.worker_ids ? req.query.worker_ids.split(",") : [],
+      },
+    );
 
-      return res.status(200).json({
-        message: "Fetched labor cost by worker",
-        data: results,
-      });
-    } catch (e) {
-      logger.error("Error querying the DB: ", e);
-      return res.status(500).send({
-        message: "Error querying the DB",
-        data: [],
-      });
-    }
-  },
-);
+    return res.status(200).json({
+      message: "Fetched labor cost by worker",
+      data: results,
+    });
+  } catch (e) {
+    logger.error("Error querying the DB: ", e);
+    return res.status(500).send({
+      message: "Error querying the DB",
+      data: [],
+    });
+  }
+});
 
 /**
  * @api {GET} /metrics/labor_cost_by_location Get Labor Cost by Location
@@ -172,30 +158,24 @@ router.get(
  * "data": []
  * }
  */
-router.get(
-  "/labor_cost_by_location",
-  // Middleware 1: Cache the response for a set amount of time
-  expressCache({
-    timeOut: cacheTimeout,
-  }),
-  async (req, res) => {
-    const conn = getDatabaseConnection();
+router.get("/labor_cost_by_location", async (req, res) => {
+  const conn = getDatabaseConnection();
 
-    // ============================
-    // Input Validation
-    // ==========================
-    const paramStatus = areParamsValid(req);
-    if (!paramStatus.success) {
-      return res.status(400).json({
-        message: paramStatus.message,
-        data: [],
-      });
-    }
+  // ============================
+  // Input Validation
+  // ==========================
+  const paramStatus = areParamsValid(req);
+  if (!paramStatus.success) {
+    return res.status(400).json({
+      message: paramStatus.message,
+      data: [],
+    });
+  }
 
-    // ============================
-    // SQL Logic
-    // ==========================
-    const sqlQuery = `
+  // ============================
+  // SQL Logic
+  // ==========================
+  const sqlQuery = `
              SELECT 
                  l.id AS location_id,
                  l.name AS location_name, 
@@ -219,31 +199,30 @@ router.get(
                  l.id ASC; 
      `;
 
-    try {
-      const results = await conn.query(
-        {
-          namedPlaceholders: true,
-          sql: sqlQuery,
-        },
-        {
-          completed: req.query?.completed ? 1 : 0,
-          location_ids: req.query.location_ids ? req.query.location_ids.split(",") : [],
-          worker_ids: req.query?.worker_ids ? req.query.worker_ids.split(",") : [],
-        },
-      );
+  try {
+    const results = await conn.query(
+      {
+        namedPlaceholders: true,
+        sql: sqlQuery,
+      },
+      {
+        completed: req.query?.completed ? 1 : 0,
+        location_ids: req.query.location_ids ? req.query.location_ids.split(",") : [],
+        worker_ids: req.query?.worker_ids ? req.query.worker_ids.split(",") : [],
+      },
+    );
 
-      return res.status(200).json({
-        message: "Fetched labor cost by location",
-        data: results,
-      });
-    } catch (e) {
-      logger.error("Error querying the DB: ", e);
-      return res.status(500).send({
-        message: "Error querying the DB",
-        data: [],
-      });
-    }
-  },
-);
+    return res.status(200).json({
+      message: "Fetched labor cost by location",
+      data: results,
+    });
+  } catch (e) {
+    logger.error("Error querying the DB: ", e);
+    return res.status(500).send({
+      message: "Error querying the DB",
+      data: [],
+    });
+  }
+});
 
 export default router;

@@ -43,6 +43,4 @@ services:
       DATABASE_USER: limble-test
       DATABASE_PASSWORD: limble-test-password
       DATABASE_NAME: limble
-      CACHE_TIMEOUT_MINUTES: 5
       LOG_LEVEL: debug
-
